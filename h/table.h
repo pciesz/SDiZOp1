@@ -8,7 +8,6 @@ class table : public data_structure
 	// TODO konsturktor kopiujący, zasada 5
 	long table_size;
 	unique_ptr<key_type[]> container;
-	// smart pointery
 public:
 	table();
 
@@ -36,6 +35,13 @@ public:
 
 	void add(const key_type data, const long position);
 
+	void remove_begin();
+
+	void remove_end();
+
+	void remove(const long position);
+
+	long search(const key_type value);
 };
 
 #endif //SDIZOP1_TABLE_H

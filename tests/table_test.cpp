@@ -7,7 +7,7 @@ TEST(table_tests, create_table_without_records)
 	ASSERT_EQ(x.name, "Tablica");
 }
 
-TEST(table_tests, add_begin) // one and some elements
+TEST(table_tests, add_begin)
 {
 	table x;
 	x.add_begin(1);
@@ -31,7 +31,7 @@ TEST(table_tests, add_begin) // one and some elements
 	ASSERT_EQ(x.get(0), 123345);
 }
 
-TEST(table_tests, add_end) // one and some elements
+TEST(table_tests, add_end)
 {
 	table x;
 	x.add_end(1);
@@ -55,7 +55,7 @@ TEST(table_tests, add_end) // one and some elements
 	ASSERT_EQ(x.get(7), 123345);
 }
 
-TEST(table_tests, add_in_the_middle_TODO) // one and some elements
+TEST(table_tests, add_in_the_middle)
 {
 	table x;
 	x.add(4, 0);  // 4
@@ -73,39 +73,197 @@ TEST(table_tests, add_in_the_middle_TODO) // one and some elements
 	ASSERT_EQ(x.get(4), 44);
 }
 
-TEST(table_tests, delete_begin_TODO) // one and some elements
+TEST(table_tests, delete_begin)
 {
-	FAIL();
+	table x;
+	x.add_begin(1);
+	x.add_begin(-1);
+	x.add_begin(0);
+	x.add_begin(12343);
+	x.add_begin(123214);
+	x.add_begin(1342);
+	x.add_begin(1324);
+	x.add_begin(123345);
+	x.remove_begin();
+	ASSERT_EQ(x.size(), 7);
+	ASSERT_EQ(x.get(6), 1);
+	ASSERT_EQ(x.get(5), -1);
+	ASSERT_EQ(x.get(4), 0);
+	ASSERT_EQ(x.get(3), 12343);
+	ASSERT_EQ(x.get(2), 123214);
+	ASSERT_EQ(x.get(1), 1342);
+	ASSERT_EQ(x.get(0), 1324);
+	x.remove_begin();
+	x.remove_begin();
+	x.remove_begin();
+	x.remove_begin();
+	x.remove_begin();
+	ASSERT_EQ(x.size(), 2);
+	ASSERT_EQ(x.get(1), 1);
+	ASSERT_EQ(x.get(0), -1);
 }
 
-TEST(table_tests, delete_end_TODO) // one and some elements
+TEST(table_tests, delete_end)
 {
-	FAIL();
+	table x;
+	x.add_end(1);
+	x.remove_end();
+	ASSERT_EQ(x.size(), 0);
+	x.add_end(1);
+	x.add_end(-1);
+	x.add_end(0);
+	x.add_end(12343);
+	x.add_end(123214);
+	x.add_end(1342);
+	x.add_end(1324);
+	x.add_end(123345);
+	x.remove_end();
+	ASSERT_EQ(x.size(), 7);
+	ASSERT_EQ(x.get(0), 1);
+	ASSERT_EQ(x.get(1), -1);
+	ASSERT_EQ(x.get(2), 0);
+	ASSERT_EQ(x.get(3), 12343);
+	ASSERT_EQ(x.get(4), 123214);
+	ASSERT_EQ(x.get(5), 1342);
+	ASSERT_EQ(x.get(6), 1324);
+	x.remove_end();
+	x.remove_end();
+	x.remove_end();
+	x.remove_end();
+	x.remove_end();
+	ASSERT_EQ(x.size(), 2);
+	ASSERT_EQ(x.get(1), -1);
+	ASSERT_EQ(x.get(0), 1);
 }
 
-TEST(table_tests, delete_in_the_middle_TODO) // one and some elements
+TEST(table_tests, delete_in_the_middle)
 {
-	FAIL();
+	table x;
+	x.add_end(1);
+	x.remove(0);
+	ASSERT_EQ(x.size(), 0);
+	x.add_end(1);
+	x.add_end(-1);
+	x.add_end(0);
+	x.add_end(12343);
+	x.add_end(123214);
+	x.add_end(1342);
+	x.add_end(1324);
+	x.add_end(123345);
+	x.remove(7);
+	ASSERT_EQ(x.size(), 7);
+	ASSERT_EQ(x.get(0), 1);
+	ASSERT_EQ(x.get(1), -1);
+	ASSERT_EQ(x.get(2), 0);//
+	ASSERT_EQ(x.get(3), 12343);
+	ASSERT_EQ(x.get(4), 123214);
+	ASSERT_EQ(x.get(5), 1342);
+	ASSERT_EQ(x.get(6), 1324);
+	x.remove(1);
+	x.remove(1);
+	x.remove(4);
+	x.remove(3);
+	x.remove(0);
+	ASSERT_EQ(x.size(), 2);
+	ASSERT_EQ(x.get(0), 12343);
+	ASSERT_EQ(x.get(1), 123214);
 }
 
-TEST(table_tests, delete_last_element_TODO) // one and some elements
+TEST(table_tests, delete_last_element)
 {
-	FAIL();
+	table x;
+	x.add_end(1);
+	x.add_end(-1);;
+	x.add_end(1324);
+	x.remove_end();
+	x.remove_end();
+	x.remove_end();
+	x.remove_end(); // TODO wyjatki
+	x.remove_end(); // TODO wyjatki
+	x.remove_end(); // TODO wyjatki
+	ASSERT_EQ(x.size(), 0);
+
+	x.add_end(1);
+	x.add_end(-1);
+	x.add_end(1324);
+	x.remove_begin();
+	x.remove_begin();
+	x.remove_begin();
+	x.remove_begin();
+	x.remove_begin();
+	x.remove_begin();
+	ASSERT_EQ(x.size(), 0); // TODO wyjatki
+
+	x.add_end(1);
+	x.add_end(-1);;
+	x.add_end(1324);
+	x.remove(2);
+	x.remove(0);
+	x.remove(0);
+	x.remove(0);
+	x.remove(-1);
+	x.remove(2);
+	ASSERT_EQ(x.size(), 0); // TODO wyjatki
+
+/*
+	for (int i = 0; i < x.size(); ++i)
+	{
+		cout << i << ": " << x.get(i) << endl;
+	}
+ */
 }
 
-TEST(table_tests, delete_in_void_table_TODO) // one and some elements
+TEST(table_tests, delete_in_void_table)
 {
-	FAIL();
+	table x;
+	x.remove_end(); // TODO wyjatki
+	x.remove_end(); // TODO wyjatki
+	ASSERT_EQ(x.size(), 0);
+
+	x.remove_begin();
+	x.remove_begin();
+	x.remove_begin();
+	ASSERT_EQ(x.size(), 0); // TODO wyjatki
+
+	x.remove(0);
+	x.remove(-1);
+	x.remove(2);
+	ASSERT_EQ(x.size(), 0); // TODO wyjatki
 }
 
-TEST(table_tests, search_TODO) // zero, one and some elements
+TEST(table_tests, search)
 {
-	FAIL();
+	table x;
+	x.add_end(1);
+	x.add_end(-1);
+	x.add_end(0);
+	x.add_end(12343);
+	x.add_end(123214);
+	x.add_end(1342);
+	x.add_end(1324);
+	x.add_end(1324);
+	x.add_end(123345);
+	ASSERT_EQ(x.search(0), 2);
+	ASSERT_EQ(x.search(-1), 1);
+	ASSERT_EQ(x.search(1342), 5);
+	ASSERT_EQ(x.search(-43), -1);
 }
 
-TEST(table_tests, print_TODO) // zero, one and some elements
+TEST(table_tests, print)
 {
-	FAIL();
+	table x;
+	x.print();      // TODO przechwycenie sturnieni wyjscia by przetestowac
+	// test wyniku
+	x.add_end(1);
+	x.add_end(-1);
+	x.add_end(0);
+	x.add_end(12343);
+	x.add_end(123214);
+	x.add_end(1342);
+	x.add_end(1324);
+	x.add_end(1324);
+	x.add_end(123345);
+	x.print();
 }
 
 TEST(table_tests, read_data_from_file_TODO) // zero, one and some elements

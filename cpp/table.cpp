@@ -20,7 +20,15 @@ void table::menu()
 
 void table::print()
 {
-	// TODO
+	cout << name << " - zawartosc: ";
+	if (table_size == 0)
+	{
+		cout << "Pusta tablica" << endl;
+		return;
+	}
+	for (int i = 0; i < table_size; ++i)
+		cout << endl << i << ": " << container[i] << "    ";
+	cout << endl;
 }
 
 void table::generate(const long number)
@@ -60,8 +68,45 @@ void table::add(const key_type data, const long position)
 	for (int i = 0; i < position; ++i)
 		tmp[i] = container[i];
 	tmp[position] = data;
-	//if (position > size())
 	for (int i = position + 1; i < table_size; ++i)
 		tmp[i] = container[i - 1];
 	container = std::move(tmp);
+}
+
+void table::remove_begin()
+{
+	--table_size;
+	unique_ptr<key_type[]> tmp{new key_type[table_size]};
+	for (int i = 0; i < table_size; ++i)
+		tmp[i] = container[i + 1];
+	container = std::move(tmp);
+}
+
+void table::remove_end()
+{
+	--table_size;
+	unique_ptr<key_type[]> tmp{new key_type[table_size]};
+	for (int i = 0; i < table_size; ++i)
+		tmp[i] = container[i];
+	container = std::move(tmp);
+}
+
+void table::remove(const long position)
+{
+	--table_size;
+	unique_ptr<key_type[]> tmp{new key_type[table_size]};
+	for (int i = 0; i < position; ++i)
+		tmp[i] = container[i];
+	for (int i = position + 1; i < table_size + 1; ++i)
+		tmp[i - 1] = container[i];
+	container = std::move(tmp);
+}
+
+long table::search(const key_type value)
+{
+	for (int i = 0; i < table_size; ++i)
+		if (container[i] == value)
+			return i;
+	// TODO wyjatek zamiast wartosci
+	return -1;
 }
