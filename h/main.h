@@ -12,6 +12,4 @@ using namespace std;
 
 #include "data_structure.h"
 
-constexpr bool debug = true;
-
 #endif //SDIZOP1_MAIN_H

@@ -1,18 +1,5 @@
 #include "../h/table.h"
 
-table::table() : data_structure()
-{
-	table_size = 0;
-	name = "Tablica";
-	container = nullptr;
-	// TODO
-}
-
-table::~table()
-{
-	// TODO
-}
-
 void table::menu()
 {
 	// TODO
@@ -31,14 +18,31 @@ void table::print()
 	cout << endl;
 }
 
+#include "../h/randomizer.h"
 void table::generate(const long number)
 {
-	// TODO
+	if (number < 0)
+		throw std::range_error("");
+	clear();
+	for (long i = 0; i < number; ++i)
+	{
+		add_end(randomizer::random(-1000, 1000));
+	}
 }
+
+#include "../h/read_file.h"
 
 void table::read_from_file(const string &name)
 {
-	// TODO
+	read_file file(name);
+	raw_data raw = file.read();
+	clear();
+	for (auto x : raw.data)
+		add_end(x);
+	if (table_size < raw.size)
+		while (table_size < raw.size)
+			add_end(0);
+
 }
 
 void table::add_end(const key_type data)
@@ -63,6 +67,8 @@ void table::add_begin(const key_type data)
 
 void table::add(const key_type data, const long position)
 {
+	if (position > table_size || position < 0)
+		throw std::range_error("");
 	++table_size;
 	unique_ptr<key_type[]> tmp{new key_type[table_size]};
 	for (int i = 0; i < position; ++i)
@@ -75,6 +81,8 @@ void table::add(const key_type data, const long position)
 
 void table::remove_begin()
 {
+	if (table_size == 0)
+		throw std::range_error("");
 	--table_size;
 	unique_ptr<key_type[]> tmp{new key_type[table_size]};
 	for (int i = 0; i < table_size; ++i)
@@ -84,6 +92,8 @@ void table::remove_begin()
 
 void table::remove_end()
 {
+	if (table_size == 0)
+		throw std::range_error("");
 	--table_size;
 	unique_ptr<key_type[]> tmp{new key_type[table_size]};
 	for (int i = 0; i < table_size; ++i)
@@ -93,6 +103,8 @@ void table::remove_end()
 
 void table::remove(const long position)
 {
+	if (position >= table_size || position < 0)
+		throw std::range_error("");
 	--table_size;
 	unique_ptr<key_type[]> tmp{new key_type[table_size]};
 	for (int i = 0; i < position; ++i)
@@ -107,6 +119,11 @@ long table::search(const key_type value)
 	for (int i = 0; i < table_size; ++i)
 		if (container[i] == value)
 			return i;
-	// TODO wyjatek zamiast wartosci
-	return -1;
+	throw std::logic_error("");
+}
+
+void table::clear()
+{
+	table_size = 0;
+	container = nullptr;
 }

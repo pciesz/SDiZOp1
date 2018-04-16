@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <fstream>
 #include "../h/table.h"
 
 TEST(table_tests, create_table_without_records)
@@ -178,9 +179,9 @@ TEST(table_tests, delete_last_element)
 	x.remove_end();
 	x.remove_end();
 	x.remove_end();
-	x.remove_end(); // TODO wyjatki
-	x.remove_end(); // TODO wyjatki
-	x.remove_end(); // TODO wyjatki
+	ASSERT_THROW(x.remove_end(), std::range_error);
+	ASSERT_THROW(x.remove_end(), std::range_error);
+	ASSERT_THROW(x.remove_end(), std::range_error);
 	ASSERT_EQ(x.size(), 0);
 
 	x.add_end(1);
@@ -189,10 +190,9 @@ TEST(table_tests, delete_last_element)
 	x.remove_begin();
 	x.remove_begin();
 	x.remove_begin();
-	x.remove_begin();
-	x.remove_begin();
-	x.remove_begin();
-	ASSERT_EQ(x.size(), 0); // TODO wyjatki
+	ASSERT_THROW(x.remove_begin(), std::range_error);
+	ASSERT_THROW(x.remove_begin(), std::range_error);
+	ASSERT_EQ(x.size(), 0);
 
 	x.add_end(1);
 	x.add_end(-1);;
@@ -200,35 +200,27 @@ TEST(table_tests, delete_last_element)
 	x.remove(2);
 	x.remove(0);
 	x.remove(0);
-	x.remove(0);
-	x.remove(-1);
-	x.remove(2);
-	ASSERT_EQ(x.size(), 0); // TODO wyjatki
-
-/*
-	for (int i = 0; i < x.size(); ++i)
-	{
-		cout << i << ": " << x.get(i) << endl;
-	}
- */
+	ASSERT_THROW(x.remove(0), std::range_error);
+	ASSERT_THROW(x.remove(-1), std::range_error);
+	ASSERT_THROW(x.remove(2), std::range_error);
+	ASSERT_EQ(x.size(), 0);
 }
 
 TEST(table_tests, delete_in_void_table)
 {
 	table x;
-	x.remove_end(); // TODO wyjatki
-	x.remove_end(); // TODO wyjatki
+	ASSERT_THROW(x.remove_end(), std::range_error);
+	ASSERT_THROW(x.remove_end(), std::range_error);
 	ASSERT_EQ(x.size(), 0);
 
-	x.remove_begin();
-	x.remove_begin();
-	x.remove_begin();
-	ASSERT_EQ(x.size(), 0); // TODO wyjatki
+	ASSERT_THROW(x.remove_begin(), std::range_error);
+	ASSERT_THROW(x.remove_begin(), std::range_error);
+	ASSERT_EQ(x.size(), 0);
 
-	x.remove(0);
-	x.remove(-1);
-	x.remove(2);
-	ASSERT_EQ(x.size(), 0); // TODO wyjatki
+	ASSERT_THROW(x.remove(0), std::range_error);
+	ASSERT_THROW(x.remove(-1), std::range_error);
+	ASSERT_THROW(x.remove(2), std::range_error);
+	ASSERT_EQ(x.size(), 0);
 }
 
 TEST(table_tests, search)
@@ -246,7 +238,7 @@ TEST(table_tests, search)
 	ASSERT_EQ(x.search(0), 2);
 	ASSERT_EQ(x.search(-1), 1);
 	ASSERT_EQ(x.search(1342), 5);
-	ASSERT_EQ(x.search(-43), -1);
+	ASSERT_THROW(x.search(-43), std::logic_error);
 }
 
 TEST(table_tests, print)
@@ -266,17 +258,58 @@ TEST(table_tests, print)
 	x.print();
 }
 
-TEST(table_tests, read_data_from_file_TODO) // zero, one and some elements
+TEST(table_tests, read_data_from_file)
 {
-	FAIL();
+	std::ofstream out("tmp");
+	out << "10 3    5 234    12354 -21334 21312 2345 2314 2345 345";
+	out.close();
+	table x;
+	x.read_from_file("tmp");
+	ASSERT_EQ(x.size(), 10);
+	ASSERT_EQ(x.get(0), 3);
+	ASSERT_EQ(x.get(1), 5);
+	ASSERT_EQ(x.get(2), 234);
+	ASSERT_EQ(x.get(3), 12354);
+	ASSERT_EQ(x.get(4), -21334);
+	ASSERT_EQ(x.get(5), 21312);
+	ASSERT_EQ(x.get(6), 2345);
+	ASSERT_EQ(x.get(7), 2314);
+	ASSERT_EQ(x.get(8), 2345);
+	ASSERT_EQ(x.get(9), 345);
+	std::ofstream out2("tmp");
+	out2 << "5 1 2 3";
+	out2.close();
+	ASSERT_THROW(x.read_from_file("tmp");, std::logic_error);
+
+	std::ofstream out3("tmp");
+	out3 << "0";
+	out3.close();
+	x.read_from_file("tmp");
+	ASSERT_EQ(x.size(), 0);
+	ASSERT_THROW(x.read_from_file("sdfsdgfgre"), std::logic_error);
 }
 
-TEST(table_tests, generate_random_data_TODO) // zero, one and some elements
+TEST(table_tests, generate_random_data)
 {
-	FAIL();
+	table x;
+	x.generate(0);
+	ASSERT_EQ(x.size(), 0);
+	x.generate(10);
+	ASSERT_EQ(x.size(), 10);
+	x.generate(1);
+	ASSERT_EQ(x.size(), 1);
 }
 
-TEST(table_tests, bad_index_range_TODO) // all previous functions
+TEST(table_tests, bad_index_range)
 {
-	FAIL();
-} // + get()
+	table x;
+	ASSERT_THROW(x.get(2), std::range_error);
+	ASSERT_THROW(x.get(-2), std::range_error);
+	ASSERT_THROW(x.add(5, -2), std::range_error);
+	ASSERT_THROW(x.add(5, 2), std::range_error);
+	ASSERT_THROW(x.remove_begin(), std::range_error);
+	ASSERT_THROW(x.remove_end(), std::range_error);
+	ASSERT_THROW(x.remove(-1), std::range_error);
+	ASSERT_THROW(x.remove(5), std::range_error);
+	ASSERT_THROW(x.generate(-5), std::range_error);
+}

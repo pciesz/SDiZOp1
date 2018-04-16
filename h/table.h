@@ -9,9 +9,12 @@ class table : public data_structure
 	long table_size;
 	unique_ptr<key_type[]> container;
 public:
-	table();
-
-	~table();
+	table() : data_structure()
+	{
+		table_size = 0;
+		name = "Tablica";
+		container = nullptr;
+	}
 
 	void menu();
 
@@ -25,8 +28,9 @@ public:
 
 	key_type get(const long index)
 	{
+		if (index > table_size || index < 0)
+			throw std::range_error("");
 		return container[index];
-		// TODO range test
 	};
 
 	void add_begin(const key_type data);
@@ -42,6 +46,8 @@ public:
 	void remove(const long position);
 
 	long search(const key_type value);
+
+	void clear();
 };
 
 #endif //SDIZOP1_TABLE_H
