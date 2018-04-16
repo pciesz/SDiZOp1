@@ -2,7 +2,120 @@
 
 void table::menu()
 {
-	// TODO
+	bool work = true;
+	while (work)
+	{
+		print();
+
+		data_structure::menu();
+		cout << "1. Wczytaj z pliku" << endl;
+		cout << "2. Generuj dane" << endl;
+		cout << "3. Dodaj element na poczatku tablicy" << endl;
+		cout << "4. Dodaj element na koncu tablicy" << endl;
+		cout << "5. Dodaj element w wybranym miejcu" << endl;
+		cout << "6. Usun element na poczatku" << endl;
+		cout << "7. Usun element na koncu" << endl;
+		cout << "8. Usun wybrany element" << endl;
+		cout << "9. Wyszukaj" << endl;
+		cout << "c. Wyczysc tablice" << endl;
+		cout << "0. Wyjdz" << endl;
+
+		char x;
+		cin >> x;
+		switch (x)
+		{
+			case '1':
+				try
+				{
+					string name;
+					cout << "Podaj nazwe pliku: ";
+					cin >> name;
+
+					read_from_file(name);
+					cout << "\nWczytano!" << endl;
+				} catch (const std::exception &e) { std::cerr << " Blad wczytywania: " << e.what() << '\n'; }
+				break;
+			case '2':
+				try
+				{
+					cout << "Podaj, ile rekordow wygenerowac: ";
+					long i;
+					cin >> i;
+
+					generate(i);
+				}
+				catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
+				break;
+			case '3':
+				try
+				{
+					cout << "Podaj, co chcesz dodac: ";
+					key_type key;
+					cin >> key;
+					add_begin(key);
+				} catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
+				break;
+			case '4':
+				try
+				{
+					cout << "Podaj, co chcesz dodac: ";
+					key_type key;
+					cin >> key;
+					add_end(key);
+				} catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
+				break;
+			case '5':
+				try
+				{
+					cout << "Podaj, co chcesz dodac: ";
+					key_type key;
+					cin >> key;
+					cout << "Podaj miejsce w tablicy: ";
+					key_type pos;
+					cin >> pos;
+					add(key, pos);
+				} catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
+				break;
+			case '6':
+				try
+				{
+					remove_begin();
+				} catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
+				break;
+			case '7':
+				try
+				{
+					remove_end();
+				} catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
+				break;
+			case '8':
+				try
+				{
+					cout << "Podaj miejsce w tablicy: ";
+					key_type pos;
+					cin >> pos;
+					remove(pos);
+				} catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
+				break;
+			case '9':
+				try
+				{
+					cout << "Podaj szukana: ";
+					key_type find;
+					cin >> find;
+					search(find);
+				} catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
+				break;
+			case 'c':
+				clear();
+				break;
+			case '0':
+				work = false;
+				break;
+			default:
+				cout << "Nieznana opcja" << endl;
+		}
+	}
 }
 
 void table::print()
@@ -19,6 +132,7 @@ void table::print()
 }
 
 #include "../h/randomizer.h"
+
 void table::generate(const long number)
 {
 	if (number < 0)
