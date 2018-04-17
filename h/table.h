@@ -5,7 +5,6 @@
 
 class table : public data_structure
 {
-	// TODO konsturktor kopiujący, zasada 5
 	long table_size;
 	unique_ptr<key_type[]> container;
 public:
