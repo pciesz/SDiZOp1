@@ -24,7 +24,7 @@ TEST(timer_tests, wait_10ms)
 	x.start();
 	usleep(10000);
 	x.stop();
-	ASSERT_TRUE(x.return_last_in_ms() == 10);
+	ASSERT_EQ(x.return_last_in_ms(), 10);
 }
 
 TEST(timer_tests, start_pause_stop_complex_test)

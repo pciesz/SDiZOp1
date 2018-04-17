@@ -260,6 +260,6 @@ bool list::search(const key_type value)
 
 void list::clear()
 {
-	while (head != nullptr)
+	while (tail != nullptr)
 		remove_end();
 }

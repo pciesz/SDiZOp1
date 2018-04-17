@@ -180,6 +180,8 @@ TEST(list_tests, read_data_from_file)
 	std::ofstream out3("tmp");
 	out3 << "0";
 	out3.close();
+
+	cout << "#######\n";
 	x.read_from_file("tmp");
 
 	ASSERT_THROW(x.read_from_file("sdfsdgfgre"), std::logic_error);
