@@ -23,11 +23,8 @@ public:
 		{
 			cout << "failed to open " << name << endl;
 			return;
-		} else
-		{
-			cout << "File was opened" << endl;
-			return;
 		}
+			return;
 	}
 
 	~read_file()

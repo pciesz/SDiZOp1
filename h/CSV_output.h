@@ -15,12 +15,7 @@ public:
 	{
 		out.open(name, out.out | out.trunc);
 		if (!out.is_open())
-		{
 			cout << "failed to open " << name << endl;
-		} else
-		{
-			cout << "File was opened" << endl;
-		}
 	}
 
 	~CSV_output()
@@ -32,11 +27,13 @@ public:
 	void add_to_line(string data)
 	{
 		out << data << "\t";
+		cout << data << "\t";
 	}
 
 	void new_line()
 	{
 		out << '\n';
+		cout << '\n';
 	}
 };
 #endif //SDIZOP1_CSV_OUTPUT_H

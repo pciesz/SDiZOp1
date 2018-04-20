@@ -4,6 +4,7 @@
 #include <memory>
 #include <sys/types.h>
 #include <limits>
+#include <algorithm>
 
 typedef int32_t key_type;
 

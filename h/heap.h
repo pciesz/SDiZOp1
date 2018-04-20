@@ -1,16 +1,7 @@
 #ifndef SDIZOP1_HEAP_H
 #define SDIZOP1_HEAP_H
 
-#include <vector>
 #include "main.h"
-#include <iostream>
-#include <cstdio>
-#include <stack>
-#include <queue>
-#include <algorithm>
-#include <cmath>
-#include <stdio.h>
-#include <stdlib.h>
 
 class heap : public data_structure
 {

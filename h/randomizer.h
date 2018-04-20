@@ -6,7 +6,7 @@
 class randomizer
 {
 public:
-	static long random(long min, long max)
+	static key_type random(key_type min, key_type max)
 	{
 		std::random_device r;
 		std::default_random_engine e(r());
