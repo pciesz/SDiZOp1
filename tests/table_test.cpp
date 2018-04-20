@@ -183,7 +183,6 @@ TEST(table_tests, delete_last_element)
 	ASSERT_THROW(x.remove_end(), std::range_error);
 	ASSERT_THROW(x.remove_end(), std::range_error);
 	ASSERT_EQ(x.size(), 0);
-
 	x.add_end(1);
 	x.add_end(-1);
 	x.add_end(1324);
@@ -193,7 +192,6 @@ TEST(table_tests, delete_last_element)
 	ASSERT_THROW(x.remove_begin(), std::range_error);
 	ASSERT_THROW(x.remove_begin(), std::range_error);
 	ASSERT_EQ(x.size(), 0);
-
 	x.add_end(1);
 	x.add_end(-1);;
 	x.add_end(1324);
@@ -212,11 +210,9 @@ TEST(table_tests, delete_in_void_table)
 	ASSERT_THROW(x.remove_end(), std::range_error);
 	ASSERT_THROW(x.remove_end(), std::range_error);
 	ASSERT_EQ(x.size(), 0);
-
 	ASSERT_THROW(x.remove_begin(), std::range_error);
 	ASSERT_THROW(x.remove_begin(), std::range_error);
 	ASSERT_EQ(x.size(), 0);
-
 	ASSERT_THROW(x.remove(0), std::range_error);
 	ASSERT_THROW(x.remove(-1), std::range_error);
 	ASSERT_THROW(x.remove(2), std::range_error);
@@ -280,7 +276,6 @@ TEST(table_tests, read_data_from_file)
 	out2 << "5 1 2 3";
 	out2.close();
 	ASSERT_THROW(x.read_from_file("tmp");, std::logic_error);
-
 	std::ofstream out3("tmp");
 	out3 << "0";
 	out3.close();
@@ -312,4 +307,20 @@ TEST(table_tests, bad_index_range)
 	ASSERT_THROW(x.remove(-1), std::range_error);
 	ASSERT_THROW(x.remove(5), std::range_error);
 	ASSERT_THROW(x.generate(-5), std::range_error);
+}
+TEST(table_tests, clear)
+{
+	table x;
+	x.generate(0);
+	ASSERT_EQ(x.size(), 0);
+	x.clear();
+	ASSERT_EQ(x.size(), 0);
+	x.generate(10);
+	ASSERT_EQ(x.size(), 10);
+	x.clear();
+	ASSERT_EQ(x.size(), 0);
+	x.generate(1);
+	ASSERT_EQ(x.size(), 1);
+	x.clear();
+	ASSERT_EQ(x.size(), 0);
 }

@@ -8,7 +8,6 @@ void heap::menu()
 	while (work)
 	{
 		print();
-
 		data_structure::menu();
 		cout << "1. Wczytaj z pliku" << endl;
 		cout << "2. Generuj dane" << endl;
@@ -17,7 +16,6 @@ void heap::menu()
 		cout << "5. Wyszukaj" << endl;
 		cout << "6. Wyczysc liste" << endl;
 		cout << "0. Wyjdz" << endl;
-
 		char x;
 		cin >> x;
 		switch (x)
@@ -28,7 +26,6 @@ void heap::menu()
 					string name;
 					cout << "Podaj nazwe pliku: ";
 					cin >> name;
-
 					read_from_file(name);
 					cout << "\nWczytano!" << endl;
 				} catch (const std::exception &e) { std::cerr << " Blad wczytywania: " << e.what() << '\n'; }
@@ -38,8 +35,7 @@ void heap::menu()
 				{
 					cout << "Podaj, ile rekordow wygenerowac: ";
 					long i;
-					cin >> i;
-
+					cin_number(i);
 					generate(i);
 				}
 				catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
@@ -48,8 +44,8 @@ void heap::menu()
 				try
 				{
 					cout << "Podaj, co chcesz dodac: ";
-					key_type key;
-					cin >> key;
+					long key;
+					cin_number(key);
 					add(key);
 				} catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
 				break;
@@ -63,8 +59,8 @@ void heap::menu()
 				try
 				{
 					cout << "Podaj szukana: ";
-					key_type find;
-					cin >> find;
+					long find;
+					cin_number(find);
 					cout << (search(find) ? "Znaleziono" : "Nie znaleziono") << endl;
 				} catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
 				break;
@@ -82,14 +78,20 @@ void heap::menu()
 
 void heap::print()
 {
-	cout << name << " - zawartosc: ";
+	cout << name << ": ";
 	// TODO wyswietlanie kopca
+	printf("\n");
+	for (long i = 0; i < data.size(); i++)
+	{
+		printf("%d\t", data[i]);
+	}
+	cout << "\n";
 }
 
 void heap::generate(const long number)
 {
 	if (number < 0)
-		throw std::range_error("");
+		throw std::range_error("Liczba ponizej zera");
 	clear();
 	for (long i = 0; i < number; ++i)
 	{
@@ -106,30 +108,71 @@ void heap::read_from_file(const string &name)
 		add(x);
 }
 
-void heap::add(const key_type key)
+key_type heap::size()
 {
-// TODO
-}
-
-key_type heap::remove_top()
-{
-	// TODO
-	return 0;
-}
-
-bool heap::search(const key_type value)
-{
-	// TODO
-	return false;
-}
-
-long heap::size()
-{
-	return size_heap;
+	return data.size();
 }
 
 void heap::clear()
 {
-	while (size_heap > 0)
-		remove_top();
+	data.clear();
+}
+
+void heap::add(const key_type key)
+{
+	data.push_back(numeric_limits<key_type>::min());
+	heap_increase_key(data.size() - 1, key);
+}
+
+key_type heap::remove_top()
+{
+	if (data.size() < 1)
+		throw range_error("Kopiec jest pusty");
+	key_type max = data[0];
+	swap(data[0], data[data.size() - 1]);
+	data.pop_back();
+	max_heapify(0);
+	return max;
+}
+
+bool heap::search(const key_type value)
+{
+	for (auto a:data)
+		if (a == value)
+			return true;
+	return false;
+}
+
+void heap::max_heapify(long i)
+{
+	long l = left(i);
+	long r = right(i);
+	long largest = i;
+	if (l < data.size() && data[i] < data[l])
+		largest = l;
+	if (r < data.size() && data[largest] < data[r])
+		largest = r;
+	if (largest != i)
+	{
+		swap(data[largest], data[i]);
+		max_heapify(largest);
+	}
+}
+
+void heap::build_max_heap(long n)
+{
+	for (long i = parent(n); i >= 0; i--)
+		max_heapify(i);
+}
+
+void heap::heap_increase_key(long i, key_type key)
+{
+	if (data[i] > key)
+		throw range_error("Nowy klucz jest zbyt maly (heap_increase_key");
+	data[i] = key;
+	while (i > 0 && data[parent(i)] < data[i])
+	{
+		swap(data[parent(i)], data[i]);
+		i = parent(i);
+	}
 }

@@ -171,18 +171,14 @@ TEST(list_tests, read_data_from_file)
 	ASSERT_TRUE(x.search(2314));
 	ASSERT_TRUE(x.search(2345));
 	ASSERT_TRUE(x.search(345));
-
 	std::ofstream out2("tmp");
 	out2 << "5 1 2 3";
 	out2.close();
 	ASSERT_THROW(x.read_from_file("tmp");, std::logic_error);
-
 	std::ofstream out3("tmp");
 	out3 << "0";
 	out3.close();
-
 	x.read_from_file("tmp");
-
 	ASSERT_THROW(x.read_from_file("sdfsdgfgre"), std::logic_error);
 }
 
@@ -204,4 +200,28 @@ TEST(list_tests, bad_data_range)
 	ASSERT_THROW(x.remove(-1), std::range_error);
 	ASSERT_THROW(x.remove(5), std::range_error);
 	ASSERT_THROW(x.generate(-5), std::range_error);
+}
+
+TEST(list_tests, clear)
+{
+	list x;
+	ASSERT_TRUE(x.empty());
+	x.generate(0);
+	ASSERT_FALSE(x.empty());
+	x.clear();
+	ASSERT_TRUE(x.empty());
+	x.generate(10);
+	ASSERT_FALSE(x.empty());
+	x.clear();
+	ASSERT_TRUE(x.empty());
+	x.add_begin(10);
+	ASSERT_FALSE(x.empty());
+	x.add_begin(10);
+	ASSERT_FALSE(x.empty());
+	x.clear();
+	ASSERT_TRUE(x.empty());
+	x.generate(1);
+	ASSERT_FALSE(x.empty());
+	x.clear();
+	ASSERT_TRUE(x.empty());
 }

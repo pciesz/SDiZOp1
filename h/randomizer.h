@@ -14,5 +14,4 @@ public:
 		return uniform_dist(e);
 	}
 };
-
 #endif //SDIZOP1_RANDOMIZER_H

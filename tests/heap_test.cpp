@@ -8,6 +8,14 @@ TEST(heap_tests, create_heap_without_records)
 	ASSERT_EQ(x.name, "Kopiec");
 }
 
+TEST(heap_tests, create_heap_with_records)
+{
+	vector<key_type> data = {55, 34, 354, 34, 23, -3434, 23, 435, 534, 32, 435, -32432, 0, 34};
+	heap x(data);
+	ASSERT_EQ(x.size(), data.size());
+	ASSERT_EQ(x.remove_top(), 534);
+}
+
 TEST(heap_tests, add_element)
 {
 	heap x;
@@ -26,15 +34,15 @@ TEST(heap_tests, delete_from_top)
 {
 	heap x;
 	x.add(1);
-	ASSERT_EQ(x.remove_top(),1);
+	ASSERT_EQ(x.remove_top(), 1);
 	x.add(1);
 	x.add(5);
 	x.add(-6);
 	x.add(0);
-	ASSERT_EQ(x.remove_top(),5);
-	ASSERT_EQ(x.remove_top(),1);
-	ASSERT_EQ(x.remove_top(),0);
-	ASSERT_EQ(x.remove_top(),-6);
+	ASSERT_EQ(x.remove_top(), 5);
+	ASSERT_EQ(x.remove_top(), 1);
+	ASSERT_EQ(x.remove_top(), 0);
+	ASSERT_EQ(x.remove_top(), -6);
 	ASSERT_THROW(x.remove_top(), std::range_error);
 	ASSERT_THROW(x.remove_top(), std::range_error);
 }
@@ -45,9 +53,9 @@ TEST(heap_tests, delete_last_element)
 	x.add(1);
 	x.add(1);
 	x.add(5);
-	ASSERT_EQ(x.remove_top(),5);
-	ASSERT_EQ(x.remove_top(),1);
-	ASSERT_EQ(x.remove_top(),1);
+	ASSERT_EQ(x.remove_top(), 5);
+	ASSERT_EQ(x.remove_top(), 1);
+	ASSERT_EQ(x.remove_top(), 1);
 	ASSERT_THROW(x.remove_top(), std::range_error);
 	ASSERT_THROW(x.remove_top(), std::range_error);
 }
@@ -112,18 +120,14 @@ TEST(heap_tests, read_data_from_file)
 	ASSERT_TRUE(x.search(2314));
 	ASSERT_TRUE(x.search(2345));
 	ASSERT_TRUE(x.search(345));
-
 	std::ofstream out2("tmp");
 	out2 << "5 1 2 3";
 	out2.close();
 	ASSERT_THROW(x.read_from_file("tmp");, std::logic_error);
-
 	std::ofstream out3("tmp");
 	out3 << "0";
 	out3.close();
-
 	x.read_from_file("tmp");
-
 	ASSERT_THROW(x.read_from_file("sdfsdgfgre"), std::logic_error);
 }
 
@@ -138,10 +142,27 @@ TEST(heap_tests, generate_random_data)
 	ASSERT_EQ(x.size(), 1);
 }
 
-TEST(heap_tests, bad_data_range_TODO) // all previous functions
+TEST(heap_tests, bad_data_range_TODO)
 {
 	heap x;
 	ASSERT_THROW(x.remove_top(), std::range_error);
 	ASSERT_THROW(x.remove_top(), std::range_error);
 	ASSERT_THROW(x.generate(-5), std::range_error);
+}
+
+TEST(heap_tests, clear)
+{
+	heap x;
+	x.generate(0);
+	ASSERT_EQ(x.size(), 0);
+	x.clear();
+	ASSERT_EQ(x.size(), 0);
+	x.generate(10);
+	ASSERT_EQ(x.size(), 10);
+	x.clear();
+	ASSERT_EQ(x.size(), 0);
+	x.generate(1);
+	ASSERT_EQ(x.size(), 1);
+	x.clear();
+	ASSERT_EQ(x.size(), 0);
 }

@@ -10,7 +10,10 @@
 #include "data_structure.h"
 #include "read_file.h"
 #include "randomizer.h"
-#include "timer.h"
+//#include "timer.h"
+#include "table.h"
+#include "list.h"
+#include "heap.h"
 //TODO data structures
 
 #endif //SDIZOP1_HEADERS_H

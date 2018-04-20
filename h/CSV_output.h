@@ -39,5 +39,4 @@ public:
 		out << '\n';
 	}
 };
-
 #endif //SDIZOP1_CSV_OUTPUT_H

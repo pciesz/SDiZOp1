@@ -7,17 +7,14 @@
 #include <vector>
 #include <array>
 
-
 struct raw_data
 {
 	long size;
 	vector<key_type> data;
 };
-
 class read_file
 {
 	ifstream in;
-
 public:
 	read_file(const string &name)
 	{
@@ -43,7 +40,7 @@ public:
 	{
 		raw_data raw;
 		if (!in.is_open())
-			throw std::logic_error("File was opened");
+			throw std::logic_error("Unable to open file");
 		string tmp;
 		in >> tmp;
 		raw.size = stol(tmp);
@@ -59,5 +56,4 @@ public:
 		return raw;
 	}
 };
-
 #endif //SDIZOP1_READ_FILE_H

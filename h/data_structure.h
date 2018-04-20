@@ -15,7 +15,6 @@ public:
 
 	virtual void menu()
 	{
-		cout << name << endl;
 		cout << "Operacje:" << endl;
 	}
 
@@ -26,8 +25,6 @@ public:
 	}
 
 	virtual void generate(const long number) = 0;
-
 	virtual void read_from_file(const string &name) = 0;
 };
-
 #endif //SDIZOP1_DATA_STRUCTURE_H

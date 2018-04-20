@@ -6,7 +6,6 @@ void table::menu()
 	while (work)
 	{
 		print();
-
 		data_structure::menu();
 		cout << "1. Wczytaj z pliku" << endl;
 		cout << "2. Generuj dane" << endl;
@@ -19,7 +18,6 @@ void table::menu()
 		cout << "9. Wyszukaj" << endl;
 		cout << "c. Wyczysc tablice" << endl;
 		cout << "0. Wyjdz" << endl;
-
 		char x;
 		cin >> x;
 		switch (x)
@@ -30,7 +28,6 @@ void table::menu()
 					string name;
 					cout << "Podaj nazwe pliku: ";
 					cin >> name;
-
 					read_from_file(name);
 					cout << "\nWczytano!" << endl;
 				} catch (const std::exception &e) { std::cerr << " Blad wczytywania: " << e.what() << '\n'; }
@@ -40,8 +37,7 @@ void table::menu()
 				{
 					cout << "Podaj, ile rekordow wygenerowac: ";
 					long i;
-					cin >> i;
-
+					cin_number(i);
 					generate(i);
 				}
 				catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
@@ -51,7 +47,7 @@ void table::menu()
 				{
 					cout << "Podaj, co chcesz dodac: ";
 					key_type key;
-					cin >> key;
+					cin_number(key);
 					add_begin(key);
 				} catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
 				break;
@@ -60,7 +56,7 @@ void table::menu()
 				{
 					cout << "Podaj, co chcesz dodac: ";
 					key_type key;
-					cin >> key;
+					cin_number(key);
 					add_end(key);
 				} catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
 				break;
@@ -69,10 +65,10 @@ void table::menu()
 				{
 					cout << "Podaj, co chcesz dodac: ";
 					key_type key;
-					cin >> key;
+					cin_number(key);
 					cout << "Podaj miejsce w tablicy: ";
 					key_type pos;
-					cin >> pos;
+					cin_number(pos);
 					add(key, pos);
 				} catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
 				break;
@@ -93,7 +89,7 @@ void table::menu()
 				{
 					cout << "Podaj miejsce w tablicy: ";
 					key_type pos;
-					cin >> pos;
+					cin_number(pos);
 					remove(pos);
 				} catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
 				break;
@@ -102,7 +98,7 @@ void table::menu()
 				{
 					cout << "Podaj szukana: ";
 					key_type find;
-					cin >> find;
+					cin_number(find);
 					search(find);
 				} catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
 				break;
@@ -120,7 +116,7 @@ void table::menu()
 
 void table::print()
 {
-	cout << name << " - zawartosc: ";
+	cout << name << ": ";
 	if (table_size == 0)
 	{
 		cout << "Pusta tablica" << endl;
@@ -136,7 +132,7 @@ void table::print()
 void table::generate(const long number)
 {
 	if (number < 0)
-		throw std::range_error("");
+		throw std::range_error("Liczba ponizej zera");
 	clear();
 	for (long i = 0; i < number; ++i)
 	{
@@ -156,7 +152,6 @@ void table::read_from_file(const string &name)
 	if (table_size < raw.size)
 		while (table_size < raw.size)
 			add_end(0);
-
 }
 
 void table::add_end(const key_type data)
@@ -182,7 +177,7 @@ void table::add_begin(const key_type data)
 void table::add(const key_type data, const long position)
 {
 	if (position > table_size || position < 0)
-		throw std::range_error("");
+		throw std::range_error("Zle miejsce w tablicy");
 	++table_size;
 	unique_ptr<key_type[]> tmp{new key_type[table_size]};
 	for (int i = 0; i < position; ++i)
@@ -196,7 +191,7 @@ void table::add(const key_type data, const long position)
 void table::remove_begin()
 {
 	if (table_size == 0)
-		throw std::range_error("");
+		throw std::range_error("Tablica pusta");
 	--table_size;
 	unique_ptr<key_type[]> tmp{new key_type[table_size]};
 	for (int i = 0; i < table_size; ++i)
@@ -207,7 +202,7 @@ void table::remove_begin()
 void table::remove_end()
 {
 	if (table_size == 0)
-		throw std::range_error("");
+		throw std::range_error("Tablica pusta");
 	--table_size;
 	unique_ptr<key_type[]> tmp{new key_type[table_size]};
 	for (int i = 0; i < table_size; ++i)
@@ -218,7 +213,7 @@ void table::remove_end()
 void table::remove(const long position)
 {
 	if (position >= table_size || position < 0)
-		throw std::range_error("");
+		throw std::range_error("Niepoprawne miejsce w tablicy");
 	--table_size;
 	unique_ptr<key_type[]> tmp{new key_type[table_size]};
 	for (int i = 0; i < position; ++i)

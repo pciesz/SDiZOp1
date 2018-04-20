@@ -6,7 +6,6 @@ void list::menu()
 	while (work)
 	{
 		print();
-
 		data_structure::menu();
 		cout << "1. Wczytaj z pliku" << endl;
 		cout << "2. Generuj dane" << endl;
@@ -19,7 +18,6 @@ void list::menu()
 		cout << "9. Wyszukaj" << endl;
 		cout << "c. Wyczysc liste" << endl;
 		cout << "0. Wyjdz" << endl;
-
 		char x;
 		cin >> x;
 		switch (x)
@@ -30,7 +28,6 @@ void list::menu()
 					string name;
 					cout << "Podaj nazwe pliku: ";
 					cin >> name;
-
 					read_from_file(name);
 					cout << "\nWczytano!" << endl;
 				} catch (const std::exception &e) { std::cerr << " Blad wczytywania: " << e.what() << '\n'; }
@@ -40,8 +37,7 @@ void list::menu()
 				{
 					cout << "Podaj, ile rekordow wygenerowac: ";
 					long i;
-					cin >> i;
-
+					cin_number(i);
 					generate(i);
 				}
 				catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
@@ -51,7 +47,7 @@ void list::menu()
 				{
 					cout << "Podaj, co chcesz dodac: ";
 					key_type key;
-					cin >> key;
+					cin_number(key);
 					add_begin(key);
 				} catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
 				break;
@@ -60,7 +56,7 @@ void list::menu()
 				{
 					cout << "Podaj, co chcesz dodac: ";
 					key_type key;
-					cin >> key;
+					cin_number(key);
 					add_end(key);
 				} catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
 				break;
@@ -69,10 +65,10 @@ void list::menu()
 				{
 					cout << "Podaj, co chcesz dodac: ";
 					key_type key;
-					cin >> key;
+					cin_number(key);
 					cout << "Podaj element, po ktorym dodac: ";
 					key_type pos;
-					cin >> pos;
+					cin_number(pos);
 					add(key, pos);
 				} catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
 				break;
@@ -93,7 +89,7 @@ void list::menu()
 				{
 					cout << "Podaj usuwany element: ";
 					key_type pos;
-					cin >> pos;
+					cin_number(pos);
 					remove(pos);
 				} catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
 				break;
@@ -102,7 +98,7 @@ void list::menu()
 				{
 					cout << "Podaj szukana: ";
 					key_type find;
-					cin >> find;
+					cin_number(find);
 					cout << (search(find) ? "Znaleziono" : "Nie znaleziono") << endl;
 				} catch (const std::exception &e) { std::cerr << " Blad: " << e.what() << '\n'; }
 				break;
@@ -120,7 +116,7 @@ void list::menu()
 
 void list::print()
 {
-	cout << name << " - zawartosc: ";
+	cout << name << ": ";
 	node *tmp = head;
 	if (tmp == nullptr)
 	{
@@ -140,7 +136,7 @@ void list::print()
 void list::generate(const long number)
 {
 	if (number < 0)
-		throw std::range_error("");
+		throw std::range_error("Liczba ponizej zera");
 	clear();
 	for (long i = 0; i < number; ++i)
 	{
@@ -181,9 +177,7 @@ void list::add_begin(const key_type data)
 void list::add(const key_type add, const key_type to_find)
 {
 	node *new_element = new node(add, nullptr, nullptr);;
-
 	node *old_element = search_node(to_find);
-
 	new_element->prev = old_element;
 	new_element->next = old_element->next;
 	old_element->next = new_element;
@@ -234,15 +228,14 @@ list::node *list::search_node(const key_type value)
 {
 	node *tmp = head;
 	if (tmp == nullptr)
-		throw std::range_error("");
-
+		throw std::range_error("Lista pusta");
 	while (tmp != nullptr)
 	{
 		if (tmp->key == value)
 			return tmp;
 		tmp = tmp->next;
 	}
-	throw std::range_error("");
+	throw std::range_error("Nie znaleziono elementu");
 }
 
 bool list::search(const key_type value)
