@@ -2,6 +2,11 @@ cmake_minimum_required(VERSION 3.10)
 project(SDiZOp1)
 
 set(CMAKE_CXX_STANDARD 14)
+
+set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_RELEASE "-O0")
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lgtest -lgtest_main")
 include_directories(googletest/include googletest)
 

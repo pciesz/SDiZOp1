@@ -207,7 +207,7 @@ TEST(list_tests, clear)
 	list x;
 	ASSERT_TRUE(x.empty());
 	x.generate(0);
-	ASSERT_FALSE(x.empty());
+	ASSERT_TRUE(x.empty());
 	x.clear();
 	ASSERT_TRUE(x.empty());
 	x.generate(10);
@@ -224,4 +224,36 @@ TEST(list_tests, clear)
 	ASSERT_FALSE(x.empty());
 	x.clear();
 	ASSERT_TRUE(x.empty());
+}
+
+TEST(list_tests, size)
+{
+	list x;
+	ASSERT_EQ(x.size(),0);
+	x.add_begin(1);
+	ASSERT_EQ(x.size(),1);
+	x.add_end(1);
+	ASSERT_EQ(x.size(),2);
+	x.add(1,1);
+	ASSERT_EQ(x.size(),3);
+	x.remove(1);
+	ASSERT_EQ(x.size(),2);
+	x.remove_begin();
+	ASSERT_EQ(x.size(),1);
+	x.remove_end();
+	ASSERT_EQ(x.size(),0);
+}
+
+TEST(list_tests, get)
+{
+	list x;
+	x.add_begin(1);
+	x.add_end(3);
+	x.add(2,1);
+	ASSERT_EQ(x.get(0),1);
+	ASSERT_EQ(x.get(1),2);
+	ASSERT_EQ(x.get(2),3);
+	ASSERT_THROW(x.get(-1), std::range_error);
+	ASSERT_THROW(x.get(3), std::range_error);
+	ASSERT_THROW(x.get(4), std::range_error);
 }

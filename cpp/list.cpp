@@ -163,6 +163,7 @@ void list::add_end(const key_type data)
 	tail = new_element;
 	if (!head)
 		head = tail;
+	size_data++;
 }
 
 void list::add_begin(const key_type data)
@@ -172,6 +173,7 @@ void list::add_begin(const key_type data)
 		head->prev = new_element;
 	head = new_element;
 	if (!tail) tail = head;
+	size_data++;
 }
 
 void list::add(const key_type add, const key_type to_find)
@@ -185,6 +187,7 @@ void list::add(const key_type add, const key_type to_find)
 		new_element->next->prev = new_element;
 	else
 		tail = new_element;
+	size_data++;
 }
 
 void list::remove_begin()
@@ -193,6 +196,7 @@ void list::remove_begin()
 		throw std::range_error("Lista pusta");
 	else
 		head = head->next;
+	size_data--;
 	// TODO co z delete?
 }
 
@@ -204,7 +208,10 @@ void list::remove_end()
 	{
 		if (tail->prev)
 			tail->prev->next = nullptr;
+		else
+			head = nullptr;
 		tail = tail->prev;
+		size_data--;
 	}
 	// TODO co z delete?
 }
@@ -220,7 +227,7 @@ void list::remove(const key_type key)
 		to_remove->next->prev = to_remove->prev;
 	else
 		tail = to_remove->prev;
-
+	size_data--;
 	// TODO co z delete?
 }
 
@@ -255,4 +262,19 @@ void list::clear()
 {
 	while (tail != nullptr)
 		remove_end();
+}
+
+long list::size()
+{
+	return size_data;
+}
+
+key_type list::get(long position)
+{
+	if (position < 0 || position >= size_data)
+		throw std::range_error("Zly zakres danych");
+	node *tmp = head;
+	for (int i = 0; i < position; ++i)
+		tmp = tmp->next;
+	return tmp->key;
 }

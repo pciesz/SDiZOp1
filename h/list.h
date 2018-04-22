@@ -23,10 +23,11 @@ class list : public data_structure
 	};
 	node *head;
 	node *tail;
+	long size_data;
 	node *search_node(const key_type value);
 // TODO destruktor
 public:
-	list() : data_structure(), head(nullptr), tail(nullptr)
+	list() : data_structure(), head(nullptr), tail(nullptr), size_data(0)
 	{
 		name = "Lista";
 	}
@@ -43,7 +44,8 @@ public:
 	void remove(const key_type key);
 	bool search(const key_type value);
 	void clear();
-
+	long size();
+	key_type get(long position); // performance tests
 	bool empty()
 	{
 		if (head != nullptr || tail != nullptr)
