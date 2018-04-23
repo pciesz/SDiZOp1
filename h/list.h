@@ -19,17 +19,19 @@ class list : public data_structure
 			next = n;
 			prev = p;
 		}
-// TODO destruktor
 	};
 	node *head;
 	node *tail;
 	long size_data;
 	node *search_node(const key_type value);
-// TODO destruktor
 public:
 	list() : data_structure(), head(nullptr), tail(nullptr), size_data(0)
 	{
 		name = "Lista";
+	}
+	~list()
+	{
+		clear();
 	}
 
 	void menu() override;

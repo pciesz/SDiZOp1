@@ -140,7 +140,7 @@ TEST(list_tests, search)
 TEST(list_tests, print)
 {
 	list x;
-	x.print();      // TODO przechwycenie sturnieni wyjscia by przetestowac
+	x.print();
 	// test wyniku
 	x.add_end(1);
 	x.add_end(-1);

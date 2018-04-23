@@ -40,6 +40,7 @@ void app::menu()
 			case 'p':
 				performance_test p;
 				p.run();
+				work = false;
 				break;
 			case '0':
 				work = false;

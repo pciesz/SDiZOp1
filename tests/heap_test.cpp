@@ -89,7 +89,7 @@ TEST(heap_tests, search)
 TEST(heap_tests, print)
 {
 	heap x;
-	x.print();      // TODO przechwycenie sturnieni wyjscia by przetestowac
+	x.print();
 	// test wyniku
 	x.add(1);
 	x.add(-1);
@@ -165,4 +165,18 @@ TEST(heap_tests, clear)
 	ASSERT_EQ(x.size(), 1);
 	x.clear();
 	ASSERT_EQ(x.size(), 0);
+}
+
+TEST(heap_tests, get)
+{
+	heap x;
+	x.add(1);
+	x.add(3);
+	x.add(2);
+	ASSERT_EQ(x.get(0),3);
+	ASSERT_EQ(x.get(1),1);
+	ASSERT_EQ(x.get(2),2);
+	ASSERT_THROW(x.get(-1), std::range_error);
+	ASSERT_THROW(x.get(3), std::range_error);
+	ASSERT_THROW(x.get(4), std::range_error);
 }

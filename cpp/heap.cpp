@@ -81,7 +81,7 @@ void heap::print()
 	cout << name << ": ";
 	// TODO wyswietlanie kopca
 	printf("\n");
-	for (long i = 0; i < data.size(); i++)
+	for (unsigned long i = 0; i < data.size(); i++)
 	{
 		printf("%d\t", data[i]);
 	}
@@ -122,6 +122,7 @@ void heap::add(const key_type key)
 {
 	data.push_back(numeric_limits<key_type>::min());
 	heap_increase_key(data.size() - 1, key);
+	// TODO add dla heap w czasie O(1)????
 }
 
 key_type heap::remove_top()
@@ -135,7 +136,7 @@ key_type heap::remove_top()
 	return max;
 }
 
-bool heap::search(const key_type value)
+bool heap::search(const key_type value, long node)
 {
 	for (auto a:data)
 		if (a == value)
@@ -143,11 +144,11 @@ bool heap::search(const key_type value)
 	return false;
 }
 
-void heap::max_heapify(long i)
+void heap::max_heapify(unsigned long i)
 {
-	long l = left(i);
-	long r = right(i);
-	long largest = i;
+	unsigned long l = left(i);
+	unsigned long r = right(i);
+	unsigned long largest = i;
 	if (l < data.size() && data[i] < data[l])
 		largest = l;
 	if (r < data.size() && data[largest] < data[r])
@@ -175,4 +176,11 @@ void heap::heap_increase_key(long i, key_type key)
 		swap(data[parent(i)], data[i]);
 		i = parent(i);
 	}
+}
+
+key_type heap::get(long index)
+{
+	if (index < 0 || index >= data.size())
+		throw std::range_error("Zly zakres danych");
+	return data[index];
 }

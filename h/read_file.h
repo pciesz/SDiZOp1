@@ -30,7 +30,6 @@ public:
 	~read_file()
 	{
 		in.close();
-		// TODO wyjątki
 	}
 
 	raw_data read()

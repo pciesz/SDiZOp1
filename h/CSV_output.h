@@ -7,8 +7,6 @@
 
 class CSV_output
 {
-	// wyjątki TODO
-	// wyjątki w innych klasach i main!!!! (spr dokumentację funkcji oraz cout
 	std::ofstream out;
 public:
 	CSV_output(string name)
@@ -21,7 +19,6 @@ public:
 	~CSV_output()
 	{
 		out.close();
-		// TODO wyjątki
 	}
 
 	void add_to_line(string data)

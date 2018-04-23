@@ -240,7 +240,7 @@ TEST(table_tests, search)
 TEST(table_tests, print)
 {
 	table x;
-	x.print();      // TODO przechwycenie sturnieni wyjscia by przetestowac
+	x.print();
 	// test wyniku
 	x.add_end(1);
 	x.add_end(-1);

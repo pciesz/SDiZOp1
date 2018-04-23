@@ -194,10 +194,10 @@ void list::remove_begin()
 {
 	if (head == nullptr)
 		throw std::range_error("Lista pusta");
-	else
-		head = head->next;
+	node *del = head;
+	head = head->next;
+	delete del;
 	size_data--;
-	// TODO co z delete?
 }
 
 void list::remove_end()
@@ -206,14 +206,15 @@ void list::remove_end()
 		throw std::range_error("Lista pusta");
 	else
 	{
+		node *del = tail;
 		if (tail->prev)
 			tail->prev->next = nullptr;
 		else
 			head = nullptr;
 		tail = tail->prev;
+		delete del;
 		size_data--;
 	}
-	// TODO co z delete?
 }
 
 void list::remove(const key_type key)
@@ -227,8 +228,8 @@ void list::remove(const key_type key)
 		to_remove->next->prev = to_remove->prev;
 	else
 		tail = to_remove->prev;
+	delete to_remove;
 	size_data--;
-	// TODO co z delete?
 }
 
 list::node *list::search_node(const key_type value)
