@@ -60,7 +60,7 @@ void performance_test::tab_list_mod_one_value(one_value function_type, string na
   out.new_line();
   out.add_to_line("Ilosc_elementow");
   out.add_to_line("czas_(ns)");
-  vector<double> result_time(number_of_elements.size());
+  vector<long> result_time(number_of_elements.size());
   out.new_line();
   for (unsigned int j = 0; j < repertition; ++j) {
 	T testing_container;
@@ -109,7 +109,7 @@ void performance_test::run_table(CSV_output &out) {
   out.add_to_line("TABLICA:");
   out.new_line();
   vector<long> number_of_elements;
-  for (long i = 500; i <= 5000; i += 500)
+  for (long i = 100; i <= 5000; i += 100)
 	number_of_elements.push_back(i);
   tab_list_mod_one_value<table>(one_value::add_begin, string("Tablica"), out, number_of_elements);
   tab_list_mod_one_value<table>(one_value::add_end, string("Tablica"), out, number_of_elements);
@@ -124,7 +124,7 @@ void performance_test::run_list(CSV_output &out) {
   out.add_to_line("LISTA:");
   out.new_line();
   vector<long> number_of_elements;
-  for (long i = 500; i <= 50000; i += 500)
+  for (long i = 50; i <= 50000; i += 50)
 	number_of_elements.push_back(i);
   tab_list_mod_one_value<list>(one_value::add_begin, string("Lista"), out, number_of_elements, true);
   tab_list_mod_one_value<list>(one_value::add_end, string("Lista"), out, number_of_elements, true);
@@ -148,7 +148,7 @@ void performance_test::heap_mod_one_value(one_value function_type, CSV_output &o
   out.new_line();
   out.add_to_line("Ilosc_elementow");
   out.add_to_line("czas_(ns)");
-  vector<double> result_time(number_of_elements.size());
+  vector<long> result_time(number_of_elements.size());
   out.new_line();
   for (unsigned int j = 0; j < repertition; ++j) {
 	heap testing_container;
@@ -183,7 +183,7 @@ void performance_test::run_heap(CSV_output &out) {
   out.add_to_line("KOPIEC:");
   out.new_line();
   vector<long> number_of_elements;
-  for (long i = 50; i <= 50000; i += 50)
+  for (long i = 50; i <= 100000; i += 50)
 	number_of_elements.push_back(i);
   heap_mod_one_value(one_value::add, out, number_of_elements);
   heap_mod_one_value(one_value::remove, out, number_of_elements);
@@ -203,7 +203,7 @@ void performance_test::BST_mod_one_value(one_value function_type, CSV_output &ou
   out.new_line();
   out.add_to_line("Ilosc_elementow");
   out.add_to_line("czas_(ns)");
-  vector<double> result_time(number_of_elements.size());
+  vector<long> result_time(number_of_elements.size());
   out.new_line();
   for (unsigned int j = 0; j < repertition; ++j) {
 	BST testing_container;
@@ -239,7 +239,7 @@ void performance_test::run_BST(CSV_output &out) {
   out.add_to_line("BST:");
   out.new_line();
   vector<long> number_of_elements;
-  for (long i = 50; i <= 50000; i += 50)
+  for (long i = 50; i <= 100000; i += 50)
 	number_of_elements.push_back(i);
   BST_mod_one_value(one_value::add, out, number_of_elements);
   BST_mod_one_value(one_value::remove, out, number_of_elements);

@@ -19,6 +19,7 @@ void app::menu() {
 	        "1: Tablica\n"
 	        "2: Lista\n"
 	        "3: Kopiec binarny\n"
+	        "4: Drzewo BST\n"
 	        "p: Test wydajnosci\n"
 	        "0: Koniec pracy programu\n";
 	char x;
@@ -29,6 +30,8 @@ void app::menu() {
 	case '2': run_list();
 	  break;
 	case '3': run_heap();
+	  break;
+	case '4': run_BST();
 	  break;
 	case 'p': performance_test p;
 	  p.run();
@@ -54,4 +57,9 @@ void app::run_list() {
 void app::run_heap() {
   heap h;
   h.menu();
+}
+
+void app::run_BST() {
+  BST b;
+  b.menu();
 }

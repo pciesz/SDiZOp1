@@ -14,7 +14,6 @@ public:
 		out.open(name, out.out | out.trunc);
 		if (!out.is_open())
 			cout << "failed to open " << name << endl;
-		out.precision(20);
 	}
 
 	~CSV_output()

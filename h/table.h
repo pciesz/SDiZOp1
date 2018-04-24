@@ -25,11 +25,9 @@ public:
   };
   void add_begin(const key_type data);
   void add_end(const key_type data);
-  // TODO table add end O(1), a widac wyraznie O(n)
   void add(const key_type data, const long position);
   void remove_begin();
   void remove_end();
-  // TODO table remove end O(1), a widac wyraznie O(n)
   void remove(const long position);
   long search(const key_type value);
   void clear();

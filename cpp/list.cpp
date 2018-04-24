@@ -190,7 +190,6 @@ void list::remove_begin() {
 	throw std::range_error("Lista pusta");
 //	node *del = head;
   head = head->next;
-//	delete del; TODO
   size_data--;
 }
 

@@ -153,7 +153,7 @@ void BST::remove(const key_type key) {
   // wyszukuje, usuwanie przez złączanie
   node *n = root;
   node *prev = nullptr;
-  while (n!=0) {
+  while (n!=0) {  // wyszukiwanie w drzewie
 	if (n->key==key)
 	  break;
 	prev = n;
@@ -183,7 +183,7 @@ void BST::delete_by_merging(node *&n) {
 	else if (n->left==nullptr)
 	  n = n->right;
 	else {
-	  tmp = n->right;
+	  tmp = n->left;
 	  while (tmp->right!=nullptr)
 		tmp = tmp->right;
 	  tmp->right = n->right;
@@ -207,4 +207,49 @@ bool BST::search(const key_type value) {
   return false;
 }
 
+// TODO
+/*BST::node* BST::search_node(const key_type value) {
+  node *n = root;
+  while (n!=nullptr) {
+	if (n->key==value)
+	  return n;
+	else if (value < n->key)
+	  n = n->left;
+	else
+	  n = n->right;
+  }
+  throw std::range_error("Nie znaleziono wezla");
+}
 
+void BST::rotate_left(const BST::node *n) {
+  if (n != nullptr) {
+	node* par, *buff;
+	buff = n->left;
+	par = n->parent;
+	n->left = buff->right; // buff->nullptr [ child cos tam ]
+	if (n->left != nullptr)
+	  n->left->parent = n;
+	buff->right = n;
+	buff->parent = par;
+	n->parent = buff;
+	if (par != nullptr)
+	{
+	  if (par->left == n)
+		par->left = buff;
+	  else
+		par->right = buff;
+	}
+	else
+	  root = buff;
+  }
+}
+void BST::rotate_right(const BST::node *n) {
+
+}
+void BST::rotate_left(const key_type key) {
+  rotate_left(search_node(key));
+}
+void BST::rotate_right(const key_type key) {
+  rotate_right(search_node(key));
+}
+*/
