@@ -14,6 +14,6 @@
 #include "table.h"
 #include "list.h"
 #include "heap.h"
-//TODO data structures
+#include "BST.h"
 
 #endif //SDIZOP1_HEADERS_H

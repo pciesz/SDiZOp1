@@ -93,6 +93,9 @@ TEST(heap_tests, print) {
   x.add(1324);
   x.add(123345);
   x.print();
+  x.clear();
+  x.generate(20);
+  x.print();
 }
 
 TEST(heap_tests, read_data_from_file) {

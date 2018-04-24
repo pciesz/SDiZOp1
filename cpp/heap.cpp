@@ -75,15 +75,28 @@ void heap::menu() {
   }
 }
 
+void heap::print(long position, string prefix, int depth) {
+  if (position < data.size()) {
+	depth++;
+	print(left(position), string("L: "), depth);
+	for (int i = 0; i < depth-1; ++i)
+	  cout << "     . ";
+	cout << prefix << data[position] << endl;
+	print(right(position), string("R: "), depth);
+  }
+}
+
 void heap::print() {
   cout << name << ": ";
-  // TODO wyswietlanie kopca
-  printf("\n");
-  for (unsigned long i = 0; i < data.size(); i++) {
-	printf("%d\t", data[i]);
-  }
-  cout << "\n";
+  if(data.size() == 0)
+	cout << "Stos pusty" << endl;
+  else
+	print(0, string(""), 0);
+  cout << endl;
 }
+
+
+
 
 void heap::generate(const long number) {
   if (number < 0)

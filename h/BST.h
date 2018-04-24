@@ -20,7 +20,7 @@ class BST : public data_structure {
   long BST_size = 0;
   void clear_node(node *n);
   void delete_by_merging(node *&n);
-  void print(node *n);
+  void print(node *n, string prefix, int depth);
 public:
   node *root = nullptr;
 
@@ -32,6 +32,11 @@ public:
 	name = "Drzewo BST";
 	for (auto x : v)
 	  add(x);
+  }
+
+  ~BST()
+  {
+    clear();
   }
 
   void menu() override;
@@ -46,6 +51,8 @@ public:
 
   void clear() {
 	clear_node(root);
+    delete root;
+    root = nullptr;
 	BST_size = 0;
   }
 };

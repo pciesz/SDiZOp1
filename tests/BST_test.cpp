@@ -74,7 +74,6 @@ TEST(BST_tests, search) {
 TEST(BST_tests, print) {
   BST x;
   x.print();
-  // test wyniku
   x.add(1);
   x.add(-1);
   x.add(0);
@@ -84,6 +83,9 @@ TEST(BST_tests, print) {
   x.add(1324);
   x.add(1324);
   x.add(123345);
+  x.print();
+  x.clear();
+  x.generate(20);
   x.print();
 }
 

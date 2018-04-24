@@ -81,21 +81,26 @@ void BST::menu() {
 	}
   }
 }
+
 void BST::print() {
-  cout << name << ": ";
+  cout << name << ": " << endl;
   if(root ==nullptr)
     cout << "Drzewo puste" << endl;
   else
-    print(root);
+    print(root, string(""), 0);
   cout << endl;
 }
-void BST::print(BST::node *n) {
+void BST::print(BST::node *n, string prefix, int depth) {
   if (n!=nullptr) {
-	print(n->left);
-	cout << n->key << " ";
-	print(n->right);
+    depth++;
+	print(n->left, string("L: "), depth);
+    for (int i = 0; i < depth-1; ++i)
+      cout << "     . ";
+	cout << prefix << n->key << endl;
+	print(n->right, string("R: "), depth);
   }
 }
+
 
 void BST::generate(const long number) {
   if (number < 0)

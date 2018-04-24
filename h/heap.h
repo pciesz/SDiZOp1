@@ -10,9 +10,9 @@ class heap : public data_structure {
   void max_heapify(unsigned long i);
   void build_max_heap(long n);
   void heap_increase_key(long i, key_type key);
+  void print(long position, string prefix, int depth);
 public:
   vector<key_type> data;
-public:
   heap() : data_structure() {
 	name = "Kopiec";
 	data = vector<key_type>();
@@ -24,10 +24,14 @@ public:
 	build_max_heap(data.size() - 1);
   }
 
-  void menu() override;
-  void print() override;
-  void generate(const long number) override;
-  void read_from_file(const string &name) override;
+  void menu()
+  override;
+  void print()
+  override;
+  void generate(const long number)
+  override;
+  void read_from_file(const string &name)
+  override;
   void add(const key_type key);
   key_type remove_top();
   bool search(const key_type value, long node = 0);
