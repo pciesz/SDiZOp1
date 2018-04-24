@@ -14,6 +14,7 @@ public:
 		out.open(name, out.out | out.trunc);
 		if (!out.is_open())
 			cout << "failed to open " << name << endl;
+		out.precision(20);
 	}
 
 	~CSV_output()
@@ -24,6 +25,7 @@ public:
 	void add_to_line(string data)
 	{
 		out << data << "\t";
+	  cout.precision(20);
 		cout << data << "\t";
 	}
 

@@ -9,9 +9,7 @@ class BST : public data_structure {
 	node *left;
 	node *right;
 	key_type key;
-
 	node() : left(nullptr), right(nullptr) {}
-
 	node(const key_type &k, node *l, node *r) : key(k) {
 	  left = l;
 	  right = r;
@@ -23,22 +21,13 @@ class BST : public data_structure {
   void print(node *n, string prefix, int depth);
 public:
   node *root = nullptr;
-
-  BST() : data_structure() {
-	name = "Drzewo BST";
-  }
-
+  BST() : data_structure() { name = "Drzewo BST"; }
+  ~BST() { clear(); }
   BST(vector<key_type> &v) : data_structure() {
 	name = "Drzewo BST";
 	for (auto x : v)
 	  add(x);
   }
-
-  ~BST()
-  {
-    clear();
-  }
-
   void menu() override;
   void print() override;
   void generate(const long number) override;
@@ -46,13 +35,11 @@ public:
   void add(const key_type key);
   void remove(const key_type key);
   bool search(const key_type value);
-
   long size() { return BST_size; }
-
   void clear() {
 	clear_node(root);
-    delete root;
-    root = nullptr;
+	delete root;
+	root = nullptr;
 	BST_size = 0;
   }
 };

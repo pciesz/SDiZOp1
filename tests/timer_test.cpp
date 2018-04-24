@@ -13,7 +13,7 @@ TEST(timer_tests, wait_1ms) {
   x.start();
   usleep(1000);
   x.stop();
-  ASSERT_EQ(x.return_last_in_ms(), 1);
+  ASSERT_EQ(x.return_last_in_mics(), 1);
 }
 
 TEST(timer_tests, wait_10ms) {
@@ -21,7 +21,7 @@ TEST(timer_tests, wait_10ms) {
   x.start();
   usleep(10000);
   x.stop();
-  ASSERT_EQ(x.return_last_in_ms(), 10);
+  ASSERT_EQ(x.return_last_in_mics(), 10);
 }
 
 TEST(timer_tests, start_pause_stop_complex_test) {
@@ -34,5 +34,5 @@ TEST(timer_tests, start_pause_stop_complex_test) {
   usleep(10000);
   x.stop();
   x.count();
-  ASSERT_EQ(x.return_all_in_ms(), 11);
+  ASSERT_EQ(x.return_all_in_mics(), 11);
 }

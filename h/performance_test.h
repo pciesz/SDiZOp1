@@ -12,10 +12,12 @@ public:
   void tab_list_mod_one_value(one_value function_type, string name, CSV_output &out, vector<long> &number_of_elements,
                               bool is_list = false);
   void heap_mod_one_value(one_value function_type, CSV_output &out, vector<long> &number_of_elements);
+  void BST_mod_one_value(one_value function_type, CSV_output &out, vector<long> &number_of_elements);
 public:
   void run();
   void run_table(CSV_output &out);
   void run_list(CSV_output &out);
   void run_heap(CSV_output &out);
+  void run_BST(CSV_output &out);
 };
 #endif //SDIZOP1_PERFORMANCE_TEST_H
