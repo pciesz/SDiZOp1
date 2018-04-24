@@ -1,6 +1,6 @@
 #include "../h/performance_test.h"
 
-constexpr unsigned int repertition = 10;
+constexpr unsigned int repertition = 1;
 constexpr unsigned int precision = 10;
 
 void performance_test::run() {
@@ -239,7 +239,7 @@ void performance_test::run_BST(CSV_output &out) {
   out.add_to_line("BST:");
   out.new_line();
   vector<long> number_of_elements;
-  for (long i = 50; i <= 100000; i += 50)
+  for (long i = 50; i <= 200000; i += 50)
 	number_of_elements.push_back(i);
   BST_mod_one_value(one_value::add, out, number_of_elements);
   BST_mod_one_value(one_value::remove, out, number_of_elements);

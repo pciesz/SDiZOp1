@@ -19,10 +19,6 @@ class BST : public data_structure {
   void clear_node(node *n);
   void delete_by_merging(node *&n);
   void print(node *n, string prefix, int depth);
-  // TODO
- /* void rotate_left(const node * n);
-  void rotate_right(const node * n);
-  node* search_node(const key_type value);*/
 public:
   node *root = nullptr;
   BST() : data_structure() { name = "Drzewo BST"; }
@@ -46,9 +42,6 @@ public:
 	root = nullptr;
 	BST_size = 0;
   }
-  // TODO
-  /*void rotate_left(const key_type key);
-  void rotate_right(const key_type key);*/
 };
 
 #endif //SDIZOP1_BST_H

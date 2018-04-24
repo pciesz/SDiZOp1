@@ -188,7 +188,6 @@ void list::add(const key_type add, const key_type to_find) {
 void list::remove_begin() {
   if (head==nullptr)
 	throw std::range_error("Lista pusta");
-//	node *del = head;
   head = head->next;
   size_data--;
 }
@@ -218,7 +217,6 @@ void list::remove(const key_type key) {
 	to_remove->next->prev = to_remove->prev;
   else
 	tail = to_remove->prev;
-//	delete to_remove;
   size_data--;
 }
 

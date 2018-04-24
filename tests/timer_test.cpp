@@ -7,7 +7,7 @@ TEST(timer_tests, timer_return_correct_value) {
   x.stop();
   ASSERT_TRUE(x.return_last_in_ns()!=0);
 }
-
+/*
 TEST(timer_tests, wait_1ms) {
   timer x;
   x.start();
@@ -36,3 +36,4 @@ TEST(timer_tests, start_pause_stop_complex_test) {
   x.count();
   ASSERT_EQ(x.return_all_in_mics(), 11);
 }
+ */

@@ -6,7 +6,7 @@
 
 class timer {
 public:
-  typedef std::chrono::system_clock Clock;
+  typedef std::chrono::high_resolution_clock Clock;
   static Clock::time_point start_time;
   static Clock::time_point stop_time;
   static Clock::time_point time_sum;

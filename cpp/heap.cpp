@@ -79,7 +79,7 @@ void heap::print(long position, string prefix, int depth) {
   if (position < data.size()) {
 	depth++;
 	print(left(position), string("L: "), depth);
-	for (int i = 0; i < depth-1; ++i)
+	for (int i = 0; i < depth - 1; ++i)
 	  cout << "     . ";
 	cout << prefix << data[position] << endl;
 	print(right(position), string("R: "), depth);
@@ -88,15 +88,12 @@ void heap::print(long position, string prefix, int depth) {
 
 void heap::print() {
   cout << name << ": ";
-  if(data.size() == 0)
+  if (data.size()==0)
 	cout << "Stos pusty" << endl;
   else
 	print(0, string(""), 0);
   cout << endl;
 }
-
-
-
 
 void heap::generate(const long number) {
   if (number < 0)
@@ -139,7 +136,7 @@ key_type heap::remove_top() {
   return max;
 }
 
-bool heap::search(const key_type value, long node) {
+bool heap::search(const key_type value) {
   for (auto a:data)
 	if (a==value)
 	  return true;

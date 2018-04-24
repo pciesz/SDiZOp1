@@ -219,7 +219,7 @@ long table::search(const key_type value) {
   for (int i = 0; i < table_size; ++i)
 	if (container[i]==value)
 	  return i;
-  throw std::logic_error("");
+  throw std::logic_error("Nie znaleziono elementu w tablicy");
 }
 
 void table::clear() {
