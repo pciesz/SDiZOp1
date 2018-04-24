@@ -3,52 +3,36 @@
 
 #include "main.h"
 
-class table : public data_structure
-{
-	long table_size;
-	unique_ptr<key_type[]> container;
+class table : public data_structure {
+  long table_size;
+  unique_ptr<key_type[]> container;
 public:
-	table() : data_structure()
-	{
-		table_size = 0;
-		name = "Tablica";
-		container = nullptr;
-	}
+  table() : data_structure() {
+	table_size = 0;
+	name = "Tablica";
+	container = nullptr;
+  }
 
-	void menu();
-
-	void print();
-
-	void generate(const long number);
-
-	void read_from_file(const string &name);
-
-	long size() { return table_size; };
-
-	key_type get(const long index)
-	{
-		if (index > table_size || index < 0)
-			throw std::range_error("");
-		return container[index];
-	};
-
-	void add_begin(const key_type data);
-
-	void add_end(const key_type data);
-	// TODO table add end O(1), a widac wyraznie O(n)
-
-	void add(const key_type data, const long position);
-
-	void remove_begin();
-
-	void remove_end();
-	// TODO table remove end O(1), a widac wyraznie O(n)
-
-	void remove(const long position);
-
-	long search(const key_type value);
-
-	void clear();
+  void menu();
+  void print();
+  void generate(const long number);
+  void read_from_file(const string &name);
+  long size() { return table_size; };
+  key_type get(const long index) {
+	if (index > table_size || index < 0)
+	  throw std::range_error("");
+	return container[index];
+  };
+  void add_begin(const key_type data);
+  void add_end(const key_type data);
+  // TODO table add end O(1), a widac wyraznie O(n)
+  void add(const key_type data, const long position);
+  void remove_begin();
+  void remove_end();
+  // TODO table remove end O(1), a widac wyraznie O(n)
+  void remove(const long position);
+  long search(const key_type value);
+  void clear();
 };
 
 #endif //SDIZOP1_TABLE_H
