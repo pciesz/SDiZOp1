@@ -1,6 +1,6 @@
 #include "../h/performance_test.h"
 
-constexpr unsigned int repertition = 1;
+constexpr unsigned int repertition = 10;
 constexpr unsigned int precision = 10;
 
 void performance_test::run() {
@@ -9,9 +9,9 @@ void performance_test::run() {
   ts.start();
 
   timer_seconds ts_tmp;
-  vector <double> times;
+  vector<double> times;
   CSV_output out("performance_tests_result.csv");
-  ts_tmp.start();
+  /*ts_tmp.start();
   run_table(out);
   ts_tmp.stop();
   times.push_back(ts_tmp.return_time());
@@ -20,21 +20,21 @@ void performance_test::run() {
   run_list(out);
   ts_tmp.stop();
   times.push_back(ts_tmp.return_time());
-
+*/
   ts_tmp.start();
   run_heap(out);
   ts_tmp.stop();
   times.push_back(ts_tmp.return_time());
-
+/*
   ts_tmp.start();
   run_BST(out);
   ts_tmp.stop();
   times.push_back(ts_tmp.return_time());
-
+*/
   ts.stop();
-  cout << "############### REAL TIME: "<< ts.return_time() << endl;
-	for(auto x : times)
-	  cout << x << endl;
+  cout << "############### REAL TIME: " << ts.return_time() << endl;
+  for (auto x : times)
+	cout << x << endl;
 }
 
 template<typename T>
@@ -183,7 +183,7 @@ void performance_test::run_heap(CSV_output &out) {
   out.add_to_line("KOPIEC:");
   out.new_line();
   vector<long> number_of_elements;
-  for (long i = 50; i <= 100000; i += 50)
+  for (long i = 50; i <= 10000; i += 50) // TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	number_of_elements.push_back(i);
   heap_mod_one_value(one_value::add, out, number_of_elements);
   heap_mod_one_value(one_value::remove, out, number_of_elements);
@@ -215,7 +215,8 @@ void performance_test::BST_mod_one_value(one_value function_type, CSV_output &ou
 		testing_container.add(randomizer::random(std::numeric_limits<key_type>::min(),
 		                                         std::numeric_limits<key_type>::max()));
 
-	  key_type for_search = randomizer::random(std::numeric_limits<key_type>::min(), std::numeric_limits<key_type>::max());
+	  key_type
+		  for_search = randomizer::random(std::numeric_limits<key_type>::min(), std::numeric_limits<key_type>::max());
 	  testing_container.add(for_search);
 	  t.start();
 	  if (function_type==one_value::add)

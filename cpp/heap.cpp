@@ -89,9 +89,11 @@ void heap::print(long position, string prefix, int depth) {
 void heap::print() {
   cout << name << ": ";
   if (data.size()==0)
-	cout << "Stos pusty" << endl;
-  else
-	print(0, string(""), 0);
+	cout << "Kopiec pusty" << endl;
+  else {
+    cout << '\n';
+    print(0, string(""), 0);
+  }
   cout << endl;
 }
 
@@ -117,11 +119,21 @@ key_type heap::size() {
 }
 
 void heap::clear() {
+  //data ==nullptr;
   data.clear();
 }
 
 void heap::add(const key_type key) {
-  data.push_back(numeric_limits<key_type>::min());
+  /*++data_size;
+  unique_ptr<key_type[]> tmp{new key_type[data_size]};
+  for (int i = 0; i < data_size - 1; ++i)
+	tmp[i] = data[i];
+  tmp[data_size - 1] = numeric_limits<key_type>::min();
+  data = std::move(tmp);
+
+  heap_increase_key(data_size, key);*/
+
+  data.add_end(numeric_limits<key_type>::min());
   heap_increase_key(data.size() - 1, key);
   // TODO add dla heap w czasie O(1)????
 }
@@ -131,17 +143,31 @@ key_type heap::remove_top() {
 	throw range_error("Kopiec jest pusty");
   key_type max = data[0];
   swap(data[0], data[data.size() - 1]);
-  data.pop_back();
+  data.remove_end();
+  /*--data_size;
+  unique_ptr<key_type[]> tmp{new key_type[data_size]};
+  for (int i = 0; i < data_size; ++i)
+	tmp[i] = data[i];
+  data = std::move(tmp);
+*/
+
   max_heapify(0);
   return max;
 }
 
 bool heap::search(const key_type value) {
-  for (auto a:data)
-	if (a==value)
+  for (int i = 0; i < data.size(); ++i)
+    if (data[i]==value)
 	  return true;
   return false;
 }
+
+/*bool heap::search(const key_type value) {
+  for (int i = 0; i < data_size; ++i)
+	if (data[i]==value)
+	  return true;
+  return false;
+}*/
 
 void heap::max_heapify(unsigned long i) {
   unsigned long l = left(i);
@@ -163,8 +189,8 @@ void heap::build_max_heap(long n) {
 }
 
 void heap::heap_increase_key(long i, key_type key) {
-  if (data[i] > key)
-	throw range_error("Nowy klucz jest zbyt maly (heap_increase_key");
+  if (data[i] > key)  // i-1
+	throw range_error("Nowy klucz jest zbyt maly (heap_increase_key)");
   data[i] = key;
   while (i > 0 && data[parent(i)] < data[i]) {
 	swap(data[parent(i)], data[i]);

@@ -13,12 +13,36 @@ public:
 	container = nullptr;
   }
 
+  key_type &operator[](const long index) const{
+	if (index > table_size || index < 0)
+	  throw std::range_error("");
+	return container[index];
+  }
+
+  table &operator=(const table &v) {
+	table_size = v.size();
+	name = "Tablica";
+	container.reset(new key_type[table_size]);
+	for (int i = 0; i < table_size; ++i)
+	  container[i] = v[i];
+	return *this;
+  }
+
+  table &operator=(const vector<key_type> &v) {
+	table_size = v.size();
+	name = "Tablica";
+	container.reset(new key_type[table_size]);
+	for (int i = 0; i < table_size; ++i)
+	  container[i] = v[i];
+	return *this;
+  }
+
   void menu();
   void print();
   void generate(const long number);
   void read_from_file(const string &name);
-  long size() { return table_size; };
-  key_type get(const long index) {
+  long size() const { return table_size; };
+  const key_type get(const long index) const {
 	if (index > table_size || index < 0)
 	  throw std::range_error("");
 	return container[index];

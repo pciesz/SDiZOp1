@@ -2,6 +2,7 @@
 #define SDIZOP1_HEAP_H
 
 #include "main.h"
+#include "table.h"
 
 class heap : public data_structure {
   long parent(long i) { return floor((i - 1)/2); }
@@ -11,11 +12,16 @@ class heap : public data_structure {
   void build_max_heap(long n);
   void heap_increase_key(long i, key_type key);
   void print(long position, string prefix, int depth);
+  //long data_size;
 public:
-  vector<key_type> data;
+  //unique_ptr<key_type[]> data;
+  table data;
+  //vector<key_type> data;
   heap() : data_structure() {
 	name = "Kopiec";
-	data = vector<key_type>();
+    //data = vector<key_type>();
+	//data = nullptr;
+	//data_size = 0;
   }
 
   heap(vector<key_type> &v) : data_structure() {
