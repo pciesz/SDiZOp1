@@ -10,18 +10,12 @@ class heap : public data_structure {
   long right(long i) { return (2*i + 2); }
   void max_heapify(unsigned long i);
   void build_max_heap(long n);
-  void heap_increase_key(long i, key_type key);
   void print(long position, string prefix, int depth);
-  //long data_size;
+  void fix_up(long i);
 public:
-  //unique_ptr<key_type[]> data;
   table data;
-  //vector<key_type> data;
   heap() : data_structure() {
 	name = "Kopiec";
-    //data = vector<key_type>();
-	//data = nullptr;
-	//data_size = 0;
   }
 
   heap(vector<key_type> &v) : data_structure() {

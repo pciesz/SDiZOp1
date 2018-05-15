@@ -11,7 +11,7 @@ void performance_test::run() {
   timer_seconds ts_tmp;
   vector<double> times;
   CSV_output out("performance_tests_result.csv");
-  /*ts_tmp.start();
+  ts_tmp.start();
   run_table(out);
   ts_tmp.stop();
   times.push_back(ts_tmp.return_time());
@@ -20,17 +20,17 @@ void performance_test::run() {
   run_list(out);
   ts_tmp.stop();
   times.push_back(ts_tmp.return_time());
-*/
+
   ts_tmp.start();
   run_heap(out);
   ts_tmp.stop();
   times.push_back(ts_tmp.return_time());
-/*
+
   ts_tmp.start();
   run_BST(out);
   ts_tmp.stop();
   times.push_back(ts_tmp.return_time());
-*/
+
   ts.stop();
   cout << "############### REAL TIME: " << ts.return_time() << endl;
   for (auto x : times)

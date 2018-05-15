@@ -91,8 +91,8 @@ void heap::print() {
   if (data.size()==0)
 	cout << "Kopiec pusty" << endl;
   else {
-    cout << '\n';
-    print(0, string(""), 0);
+	cout << '\n';
+	print(0, string(""), 0);
   }
   cout << endl;
 }
@@ -119,23 +119,31 @@ key_type heap::size() {
 }
 
 void heap::clear() {
-  //data ==nullptr;
   data.clear();
 }
 
+void heap::fix_up(long i) {
+  long largest;
+  long l = left(i);
+  long r = right(i);
+  if (l < size() && data[l] > data[i])
+	largest = l;
+  else
+	largest = i;
+
+  if (r < size() && data[largest] < data[r])
+	largest = r;
+
+  if (largest!=i) {
+	std::swap(data[i], data[largest]);
+    fix_up(largest);
+  }
+}
+
 void heap::add(const key_type key) {
-  /*++data_size;
-  unique_ptr<key_type[]> tmp{new key_type[data_size]};
-  for (int i = 0; i < data_size - 1; ++i)
-	tmp[i] = data[i];
-  tmp[data_size - 1] = numeric_limits<key_type>::min();
-  data = std::move(tmp);
-
-  heap_increase_key(data_size, key);*/
-
-  data.add_end(numeric_limits<key_type>::min());
-  heap_increase_key(data.size() - 1, key);
-  // TODO add dla heap w czasie O(1)????
+  data.add_end(key);
+  for (int i = size() - 1; i >= 0; i--)
+    fix_up(i);
 }
 
 key_type heap::remove_top() {
@@ -144,58 +152,22 @@ key_type heap::remove_top() {
   key_type max = data[0];
   swap(data[0], data[data.size() - 1]);
   data.remove_end();
-  /*--data_size;
-  unique_ptr<key_type[]> tmp{new key_type[data_size]};
-  for (int i = 0; i < data_size; ++i)
-	tmp[i] = data[i];
-  data = std::move(tmp);
-*/
 
-  max_heapify(0);
+  for (int i = size() - 1; i >= 0; i--)
+    fix_up(i);
   return max;
 }
 
 bool heap::search(const key_type value) {
   for (int i = 0; i < data.size(); ++i)
-    if (data[i]==value)
-	  return true;
-  return false;
-}
-
-/*bool heap::search(const key_type value) {
-  for (int i = 0; i < data_size; ++i)
 	if (data[i]==value)
 	  return true;
   return false;
-}*/
-
-void heap::max_heapify(unsigned long i) {
-  unsigned long l = left(i);
-  unsigned long r = right(i);
-  unsigned long largest = i;
-  if (l < data.size() && data[i] < data[l])
-	largest = l;
-  if (r < data.size() && data[largest] < data[r])
-	largest = r;
-  if (largest!=i) {
-	swap(data[largest], data[i]);
-	max_heapify(largest);
-  }
 }
 
 void heap::build_max_heap(long n) {
   for (long i = parent(n); i >= 0; i--)
-	max_heapify(i);
-}
-
-void heap::heap_increase_key(long i, key_type key) {
-  if (data[i] > key)  // i-1
-	throw range_error("Nowy klucz jest zbyt maly (heap_increase_key)");
-  data[i] = key;
-  while (i > 0 && data[parent(i)] < data[i]) {
-	swap(data[parent(i)], data[i]);
-	i = parent(i);
-  }
+	fix_up(i);
 }
 
 key_type heap::get(long index) {

@@ -173,23 +173,34 @@ void list::add_begin(const key_type data) {
 }
 
 void list::add(const key_type add, const key_type to_find) {
-  node *new_element = new node(add, nullptr, nullptr);;
   node *old_element = search_node(to_find);
+  node *new_element = new node(add, nullptr, nullptr);
   new_element->prev = old_element;
   new_element->next = old_element->next;
   old_element->next = new_element;
   if (new_element->next)
 	new_element->next->prev = new_element;
-  else
-	tail = new_element;
+  else {
+    tail = new_element;
+    if (head ==nullptr)
+      head = new_element;
+  }
   size_data++;
 }
 
 void list::remove_begin() {
   if (head==nullptr)
 	throw std::range_error("Lista pusta");
-  head = head->next;
-  size_data--;
+  else {
+	node *del = head;
+	if (head->next)
+	  head->next->prev = nullptr;
+	else
+	  tail = nullptr;
+    head = head->next;
+	delete del;
+	size_data--;
+  }
 }
 
 void list::remove_end() {
@@ -209,6 +220,7 @@ void list::remove_end() {
 
 void list::remove(const key_type key) {
   node *to_remove = search_node(key);
+  node * del = to_remove;
   if (to_remove->prev)
 	to_remove->prev->next = to_remove->next;
   else
@@ -217,6 +229,7 @@ void list::remove(const key_type key) {
 	to_remove->next->prev = to_remove->prev;
   else
 	tail = to_remove->prev;
+  delete del;
   size_data--;
 }
 
