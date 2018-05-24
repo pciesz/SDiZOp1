@@ -11,7 +11,9 @@ class heap : public data_structure {
   void max_heapify(unsigned long i);
   void build_max_heap(long n);
   void print(long position, string prefix, int depth);
-  void fix_up(long i);
+  void fix_down(long index);
+  void fix_up(long index);
+
 public:
   table data;
   heap() : data_structure() {

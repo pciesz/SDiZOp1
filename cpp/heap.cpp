@@ -122,28 +122,32 @@ void heap::clear() {
   data.clear();
 }
 
-void heap::fix_up(long i) {
-  long largest;
-  long l = left(i);
-  long r = right(i);
-  if (l < size() && data[l] > data[i])
-	largest = l;
-  else
-	largest = i;
+void heap::fix_down(long index) {
+  if (left(index) >= data.size()) //index is a leaf
+	return;
+  long maximum = index;
+  if (data[index] < data[left(index)])
+	maximum = left(index);
+  if ((right(index) > data.size()) && (data[maximum] > right(index)))
+	maximum = right(index);
+  if (maximum!=index) {
+	std::swap(data[index], data[maximum]);
+	fix_down(maximum);
+  }
+}
 
-  if (r < size() && data[largest] < data[r])
-	largest = r;
-
-  if (largest!=i) {
-	std::swap(data[i], data[largest]);
-    fix_up(largest);
+void heap::fix_up(long index) {
+  if (index==0)
+	return;
+  if (data[parent(index)] < data[index]) {
+	std::swap(data[parent(index)], data[index]);
+	fix_up(parent(index));
   }
 }
 
 void heap::add(const key_type key) {
   data.add_end(key);
-  for (int i = size() - 1; i >= 0; i--)
-    fix_up(i);
+  fix_up(data.size() - 1);
 }
 
 key_type heap::remove_top() {
@@ -153,8 +157,7 @@ key_type heap::remove_top() {
   swap(data[0], data[data.size() - 1]);
   data.remove_end();
 
-  for (int i = size() - 1; i >= 0; i--)
-    fix_up(i);
+  fix_down(0);
   return max;
 }
 
@@ -166,7 +169,7 @@ bool heap::search(const key_type value) {
 }
 
 void heap::build_max_heap(long n) {
-  for (long i = parent(n); i >= 0; i--)
+  for (long i = n; i >= 0; i--)
 	fix_up(i);
 }
 
